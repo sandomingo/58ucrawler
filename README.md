@@ -1,5 +1,6 @@
-#58同城技能交换抓取
-author: SanDomingo
+#58同城用户抓取
+author: SanDomingo 
+
 email: whyzxm@gmail.com
 
 ##项目包含两个程序：
