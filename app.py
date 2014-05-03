@@ -63,7 +63,7 @@ def export_data(output_filename):
 
 
 def print_help():
-    print "Usage: python app.py setup | crawluid | crawlpage | export <outfile>"
+    print "Usage: python app.py setup | crawluid [thread_num]| crawlpage [thread_num] | export <outfile>"
 
 
 if __name__ == '__main__':
