@@ -11,8 +11,9 @@ import dbutil
 class UidCrawler(threading.Thread):
     """58同城技能交换搜索页面用户uid抓取类"""
 
-    def __init__(self, seeds):
+    def __init__(self, seeds, interval=1000):
         threading.Thread.__init__(self)
+        self.interval = interval / 1000.0  # fetch interval in second
         self.seeds = seeds
         self.fetching = Queue.Queue(maxsize=10)
         self.xpaths = tc_xpaths
@@ -99,10 +100,9 @@ class UidCrawler(threading.Thread):
 
             fetching_url = self.fetching.get()
             self.crawl_one(fetching_url)
-            if self.fetched_num % 100 == 0: # simple log
-                print "===> Fetched page num: ", self.fetched_num
-            # crawl interval: one second
-            time.sleep(1)
+            print "===> Fetched uid num: ", self.fetched_num
+            # crawl interval: default is one second
+            time.sleep(self.interval)
 
     def gen_next_url(self, url, html):
         """从response中解析js，并结合现有的url拼出下一页的url"""

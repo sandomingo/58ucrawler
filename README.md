@@ -30,12 +30,12 @@ email: whyzxm@gmail.com
 
     `$ python app.py crawluid  # 一个线程`
     
-    `$ python app.py crawluid 3  # 三个线程`
+    `$ python app.py crawluid 3 1000 # 三个线程， 1000ms抓取间隔`
 3. 启动page爬虫，需要多少个线程请根据网络调试，可以使用nohup命令后台运行程序
 
     `$ python app.py crawlpage  # 一个线程`
     
-    `$ python app.py crawlpage 3  # 三个线程`
+    `$ python app.py crawlpage 3 1000 # 三个线程, 1000ms抓取间隔`
 4. 完成数据抓取，可以从数据库导出数据
 
     * 方法一：

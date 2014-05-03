@@ -6,11 +6,11 @@ import Queue
 import sys
 import time
 
-def crawl_page(crawl_num = 1):
+def crawl_page(crawl_num=1, crawl_interval=1000):
     """启动用户个人页面爬虫"""
     page_crawlers = []
     for i in range(crawl_num):
-        page_crawler = pagecrawler.PageCrawler()
+        page_crawler = pagecrawler.PageCrawler(crawl_interval)
         page_crawler.start()
         page_crawlers.append(page_crawler)
         print "page crawler started, id: ", i
@@ -44,14 +44,14 @@ def get_citys():
 
 
 
-def crawl_uid(crawl_num = 1):
+def crawl_uid(crawl_num=1, crawl_interval=1000):
     """启动搜索页面爬虫，抓取用户uid"""
     citys = get_citys()
     gender = [1, 2]  # 1: female, 2: male
     seeds = gen_seeds(citys, gender)
     uid_cralers = []
     for i in range(crawl_num):
-        uid_crawler = uidcrawler.UidCrawler(seeds)
+        uid_crawler = uidcrawler.UidCrawler(seeds, crawl_interval)
         uid_crawler.start()
         uid_cralers.append(uid_crawler)
     for uid_crawler in uid_cralers:
@@ -63,7 +63,8 @@ def export_data(output_filename):
 
 
 def print_help():
-    print "Usage: python app.py setup | crawluid [thread_num]| crawlpage [thread_num] | export <outfile>"
+    print ("Usage: python app.py setup | crawluid [thread_num] [fetch_interval_ms] |"
+        " crawlpage [thread_num] [fetch_interval_ms] | export <outfile>")
 
 
 if __name__ == '__main__':
@@ -76,14 +77,20 @@ if __name__ == '__main__':
         dbutil.create_table()
     elif fun_name == 'crawluid':
         crawl_num = 1
-        if arg_num == 3:
+        if arg_num >= 3:
             crawl_num = int(sys.argv[2])
-        crawl_uid(crawl_num)
+            crawl_interval = 1000
+            if arg_num >= 4:
+                crawl_interval = int(sys.argv[3])
+        crawl_uid(crawl_num, crawl_interval)
     elif fun_name == 'crawlpage':
         crawl_num = 1
-        if arg_num == 3:
+        if arg_num >= 3:
             crawl_num = int(sys.argv[2])
-        crawl_page(crawl_num)
+            crawl_interval = 1000
+            if arg_num >= 4:
+                crawl_interval = int(sys.argv[3])
+        crawl_page(crawl_num, crawl_interval)
     elif arg_num == 3 and fun_name == 'export':
         outfile = sys.argv[2]
         export_data(outfile)

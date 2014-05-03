@@ -9,8 +9,9 @@ import dbutil
 class PageCrawler(threading.Thread):
     """58同城用户个人页面抓取类"""
 
-    def __init__(self):
+    def __init__(self, interval=1000):
         threading.Thread.__init__(self)
+        self.interval = interval / 1000.0  # fetch interval in second
         self.fetching = Queue.Queue(maxsize=1000)
         self.xpaths = tc_xpaths
         self.default_encoding = 'utf-8'
@@ -93,8 +94,8 @@ class PageCrawler(threading.Thread):
                 self.crawl_one(uid[0])
                 if self.fetched_num % 100 == 0: # simple log
                     print "===> Fetched page num: ", self.fetched_num
-                # crawl interval: one second
-                time.sleep(1)
+                # crawl interval: default is one second
+                time.sleep(self.interval)
 
 
 
