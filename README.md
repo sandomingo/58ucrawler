@@ -16,7 +16,7 @@ email: whyzxm@gmail.com
 * sqlite
 
 ##程序包依赖：
-* import lxml  
+* lxml  
 * sqlite3 
 
 
