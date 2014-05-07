@@ -1,7 +1,7 @@
-#58同城用户抓取
-author: SanDomingo 
+58ucrawler
+==========
 
-email: whyzxm@gmail.com
+58同城用户抓取
 
 ##项目包含两个程序：
 1. 在搜索页面的用户id抓取
